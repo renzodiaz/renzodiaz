@@ -1,6 +1,17 @@
 $background_dark: #121723;
 
+$color-gray: #b5b5b5;
+
 $font-regular: "Manrope";
 $font-semibold: "Manrope SemiBold";
 $font-light: "Manrope Light";
 $font-extrabold: "Manrope ExtraBold";
+
+/*
+ * Map for breakpoints
+ */
+$breakpoints: (
+  sm: "(min-width: 568px)",
+  md: "(min-width: 768px)",
+  lg: "(min-width: 992px)"
+);

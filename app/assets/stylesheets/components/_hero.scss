@@ -1,33 +1,124 @@
+@use '../settings/variables';
+@use '../settings/mixins';
+
 .hero {
   &__content {
+    align-items: center;
+    display: flex;
     min-height: 100vh;
     margin: 0 auto;
-    max-width: 1280px;
+    max-width: 1080px;
+    padding: 0 1rem;
+
+    @include mixins.responsive('md') {
+      padding: 0 2rem;
+    }
   }
 
   &__inner-content {
-    align-items: center;
-    display: flex;
-    height: 100vh;
-    justify-content: space-between;
+    @include mixins.responsive('md') {
+      height: 100vh;
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+  }
+
+  &__text,
+  &__image {
+    @include mixins.responsive('md') {
+      display: flex;
+    }
   }
 
   &__text {
+    margin-bottom: 3rem;
+
+    h2, small {
+      font-family: variables.$font-semibold;
+    }
+
     h2 {
-      font-size: 2rem;
-      line-height: 1;
-      span {
-        display: block;
-        font-size: 1rem;
+      font-size: 1.2rem;
+
+      @include mixins.responsive('md') {
+        font-size: 1.5rem;
       }
 
       .text-primary {
-        font-size: 2rem;
         color: red;
+        display: block;
+        font-size: 2rem;
+        line-height: 1;
+
+        @include mixins.responsive('md') {
+          font-size: 2.5rem;
+        }
+      }
+
+      small {
+        color: variables.$color-gray;
+        display: block;
+        text-transform: uppercase;
+
+        @include mixins.responsive('md') {
+          font-size: 60%;
+        }
       }
     }
-    small {
-      text-transform: uppercase;
+  }
+
+  &__image {
+    figure {
+      background: #1d1f20;
+      border-radius: 10px; 
+      position: relative;
+      max-width: 380px;
+      margin: 0 auto;
+
+      &:after {
+        animation: gradient-animation 3s ease alternate infinite;
+        background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab,
+        #5073b8, #1098ad, #07b39b, #6fba82);
+        background-size: 300% 300%;
+        border-radius: 10px;
+        content: '';
+        height: calc(100% + 10px);
+        left: -5px;
+        position: absolute;
+        top: -5px;
+        width: calc(100% + 10px);
+        z-index: -1;
+      }
+
+      img {
+        border-radius: 10px;
+      }
+
+      figcaption {
+        background: rgba(0, 0, 0, .5);
+        bottom: 0;
+        font-family: variables.$font-semibold;
+        font-size: .75rem;
+        left: 0;
+        padding: 1rem;
+        position: absolute;
+        text-align: center;
+        width: 100%;
+      }
     }
+  }
+}
+
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }

@@ -1,5 +1,6 @@
 @use "settings/fonts";
 @use "settings/variables";
+@use "settings/mixins";
 @use "components/hero";
 
 body  {
@@ -8,4 +9,5 @@ body  {
   font-family: variables.$font-regular;
   font-weight: normal;
   font-style: normal;
+  -webkit-font-smoothing: antialiased;
 }

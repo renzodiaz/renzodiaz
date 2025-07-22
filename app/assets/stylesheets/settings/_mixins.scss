@@ -1,0 +1,8 @@
+@use 'variables';
+
+@mixin responsive($size) {
+  $query: map-get(variables.$breakpoints, $size);
+  @media #{unquote($query)} {
+    @content;
+  }
+}
