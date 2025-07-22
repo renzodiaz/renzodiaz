@@ -41,3 +41,6 @@
 
 # Ignore Vim's temporary opened file
 *.swp
+
+# Ignore Mac's file for metadate
+*.DS_Store

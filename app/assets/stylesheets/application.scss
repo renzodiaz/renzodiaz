@@ -1,0 +1,11 @@
+@use "settings/fonts";
+@use "settings/variables";
+@use "components/hero";
+
+body  {
+  color: white;
+  background: variables.$background_dark;
+  font-family: variables.$font-regular;
+  font-weight: normal;
+  font-style: normal;
+}

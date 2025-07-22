@@ -1,0 +1,33 @@
+.hero {
+  &__content {
+    min-height: 100vh;
+    margin: 0 auto;
+    max-width: 1280px;
+  }
+
+  &__inner-content {
+    align-items: center;
+    display: flex;
+    height: 100vh;
+    justify-content: space-between;
+  }
+
+  &__text {
+    h2 {
+      font-size: 2rem;
+      line-height: 1;
+      span {
+        display: block;
+        font-size: 1rem;
+      }
+
+      .text-primary {
+        font-size: 2rem;
+        color: red;
+      }
+    }
+    small {
+      text-transform: uppercase;
+    }
+  }
+}
