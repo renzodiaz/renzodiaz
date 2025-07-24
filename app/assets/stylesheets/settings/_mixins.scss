@@ -1,8 +1,10 @@
+@use "sass:map";
+@use "sass:string";
 @use 'variables';
 
 @mixin responsive($size) {
-  $query: map-get(variables.$breakpoints, $size);
-  @media #{unquote($query)} {
+  $query: map.get(variables.$breakpoints, $size);
+  @media #{string.unquote($query)} {
     @content;
   }
 }

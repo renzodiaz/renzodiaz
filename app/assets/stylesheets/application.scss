@@ -1,13 +1,42 @@
 @use "settings/fonts";
 @use "settings/variables";
 @use "settings/mixins";
+@use "components/header";
 @use "components/hero";
+@use "components/timeline";
+@use "components/section-about";
+
 
 body  {
   color: white;
-  background: variables.$background_dark;
+  background: variables.$color-dark;
   font-family: variables.$font-regular;
   font-weight: normal;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
+}
+
+
+/* GENERAL CLASSES */
+
+.container {
+  margin: 0 auto;
+  max-width: 1080px;
+  padding: 0 1rem;
+}
+
+.font-semibold {
+  font-family: variables.$font-semibold;
+}
+
+.only-mobile {
+  display: block;
+
+  @include mixins.responsive('sm') {
+    display: none;
+  }
+}
+
+.text-red {
+  color: red;
 }

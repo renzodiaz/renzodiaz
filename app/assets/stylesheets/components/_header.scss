@@ -1,0 +1,54 @@
+@use '../settings/variables';
+@use '../settings/mixins';
+
+.header {
+  font-family: variables.$font-semibold;
+  left: 0;
+  position: absolute;
+  padding: 1rem 0;
+  width: 100%;
+  z-index: 2;
+
+  &__wrapper {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+
+    h1 {
+      font-size: 1.65rem;
+
+      span {
+        color: red;
+      }
+    }
+  }
+
+  &__nav {
+    display: none;
+
+    @include mixins.responsive('sm') {
+      display: flex;
+    }
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      li {
+        display: inline-block;
+        font-size: .965rem;
+        vertical-align: top;
+        a {
+          padding: .3rem 1rem;
+        }
+
+        &:last-child {
+          a {
+            padding-right: 0;
+          }
+        }
+      }
+    }
+  }
+}

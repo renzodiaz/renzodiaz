@@ -1,0 +1,123 @@
+@use '../settings/variables';
+@use '../settings/mixins';
+
+.timeline {
+  overflow: hidden;
+  padding: 2rem 0 2rem 1.5rem;
+
+  &__item {
+    color: variables.$color-dark;
+    background-image: linear-gradient(180deg, #E04F67 , #C72C4A , #7B1E6A , #4A1442 );
+    list-style: none;
+    position: relative;
+    padding-top: 50px;
+    width: 7px;
+
+
+    @include mixins.responsive("md") {
+      margin: 0 auto;
+
+      &:last-child {
+        padding-bottom: 50px;
+      }
+
+      &:nth-child(odd) .card:before {
+        border-width: 20px 16px 20px 0;
+        left: -10px;
+      }
+
+      &:nth-child(odd) .card {
+        transform: translateX(400%);
+      }
+
+      &:nth-child(even) .card {
+        transform: translateX(-400%);
+
+        left: -455px;
+
+        &:before {
+          border-width: 20px 0 20px 16px;
+          right: -10px;
+        }
+      }
+    }
+
+    span {
+      background: white;
+      border-radius: 50%; 
+      font-size: .95rem;
+      font-weight: bold;
+      height: 45px;
+      left: 50%;
+      padding-top: 12px;
+      position: absolute;
+      text-align: center;
+      top: 45px;
+      transform: translateX(-50%);
+      width: 45px;
+    }
+
+    .card {
+      background: white;
+      bottom: 0;
+      box-shadow: 0 0 5px rgba(0, 0, 0, .5);
+      border-radius: 5px;
+      margin-left: 40px;
+      max-width: 380px;
+      padding: 1rem;
+      position: relative;
+      transform: translateX(400%);
+      transition: all .5s ease-in-out;
+      width: calc(100vw - 90px);
+
+      &.show {
+        transform: translateX(0);
+        transition: all .5s ease-in-out;
+      }
+
+      &:before {
+        border-color: transparent white;
+        border-style: solid;
+        border-width: 20px 16px 20px 0;
+        content: "";
+        left: -10px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 0;
+
+        @include mixins.responsive("md") {
+          left: auto;
+        }
+      }
+
+      .card__title {
+        color: variables.$color-dark;
+        letter-spacing: 0.3px;
+        margin-top: .5rem;
+      }
+
+      p {
+        color: #444;
+        font-size: .95rem;
+        letter-spacing: .2px;
+        line-height: 1.6rem;
+        margin: .5rem 0;
+        strong {
+          color: red;
+        }
+      }
+
+      button {
+        background: red;
+        border-radius: 20px;
+        color: white;
+        cursor: pointer;
+        font-family: variables.$font-semibold;
+        font-size: .85rem;
+        font-weight: bold;
+        padding: .5rem 1rem;
+      }
+    }
+  }
+}

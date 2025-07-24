@@ -1,0 +1,10 @@
+@use '../settings/variables';
+@use '../settings/mixins';
+
+.about-section {
+  h2 {
+    text-align: center;
+    font-size: 2rem;
+  }
+}
+

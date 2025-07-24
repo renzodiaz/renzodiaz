@@ -47,7 +47,11 @@
       }
 
       .text-primary {
-        color: red;
+        color: variables.$color-red; 
+        background-image: linear-gradient(45deg, #E04F67 , #C72C4A , #7B1E6A , #4A1442 ); 
+        background-clip: text; 
+        -webkit-background-clip: text; 
+        -webkit-text-fill-color: transparent;
         display: block;
         font-size: 2rem;
         line-height: 1;
@@ -79,8 +83,9 @@
 
       &:after {
         animation: gradient-animation 3s ease alternate infinite;
-        background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab,
-        #5073b8, #1098ad, #07b39b, #6fba82);
+        //background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab,
+        //#5073b8, #1098ad, #07b39b, #6fba82);
+        background-image: linear-gradient(45deg, #E04F67 , #C72C4A , #7B1E6A , #4A1442 ); 
         background-size: 300% 300%;
         border-radius: 10px;
         content: '';
