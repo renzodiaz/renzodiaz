@@ -6,18 +6,18 @@
 @use "components/timeline";
 @use "components/section-about";
 
-
 body  {
-  color: white;
-  background: variables.$color-dark;
-  font-family: variables.$font-regular;
   font-weight: normal;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
 }
 
-
 /* GENERAL CLASSES */
+.bg-dark {
+  background: variables.$color-dark;
+  font-family: variables.$font-regular;
+  color: white;
+}
 
 .container {
   margin: 0 auto;

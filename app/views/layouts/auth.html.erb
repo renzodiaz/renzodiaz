@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="h-full">
   <head>
     <title><%= content_for(:title) || "Renzo Diaz - Website" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -18,13 +18,16 @@
     <link rel="apple-touch-icon" href="/icon.png">
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="bg-dark">
-    <%= render partial: "layouts/app_header" %>
-    <main>
+  <body class="h-full">
+    <main class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+      <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+        <img src="<%= image_path "gem.svg" %>" alt="Renzo Diaz" class="mx-auto h-10 w-auto" />
+
+      </div>
       <%= yield %>
     </main>
   </body>
