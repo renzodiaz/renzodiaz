@@ -1,6 +1,4 @@
-module Dashboard
-  class HomeController < AuthController
-    def index
-    end
+class Dashboard::HomeController < Dashboard::AuthController
+  def index
   end
 end

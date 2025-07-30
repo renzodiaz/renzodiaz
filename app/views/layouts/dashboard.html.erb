@@ -22,10 +22,10 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="h-full">
+  <body class="h-full" data-controller="drawer">
     <div>
-      <%= render 'layouts/mobile_navigation' %>
-      <%= render 'layouts/sidebar' %>
+      <%= render 'layouts/partials/mobile_navigation' %>
+      <%= render 'layouts/partials/sidebar' %>
       <div class="lg:pl-72">
         <div class="sticky top-0 z-40 lg:mx-auto lg:max-w-7xl lg:px-8">
           <div class="flex h-16 items-center gap-x-4 border-b border-gray-200 bg-white px-4 shadow-xs sm:gap-x-6 sm:px-6 lg:px-0 lg:shadow-none">
@@ -58,30 +58,19 @@
                 <div aria-hidden="true" class="hidden lg:block lg:h-6 lg:w-px lg:bg-gray-200"></div>
 
                 <!-- Profile dropdown -->
-                <div class="relative">
-                  <button id="user-menu-button" type="button" aria-expanded="false" aria-haspopup="true" class="relative flex items-center">
+                <div class="relative" data-controller="toggle">
+                  <button id="user-menu-button" type="button" aria-expanded="false" aria-haspopup="true" class="relative flex items-center" data-action="click->toggle#switch">
                     <span class="absolute -inset-1.5"></span>
                     <span class="sr-only">Open user menu</span>
                     <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" class="size-8 rounded-full bg-gray-50" />
                     <span class="hidden lg:flex lg:items-center">
-                      <span aria-hidden="true" class="ml-4 text-sm/6 font-semibold text-gray-900">Tom Cook</span>
+                      <span aria-hidden="true" class="ml-4 text-sm/6 font-semibold text-gray-900"><%= "#{current_user.first_name} #{current_user.last_name}" %></span>
                       <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="ml-2 size-5 text-gray-400">
                         <path d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" fill-rule="evenodd" />
                       </svg>
                     </span>
                   </button>
-
-                  <!--
-                    Dropdown menu, show/hide based on menu state.
-
-                    Entering: "transition ease-out duration-100"
-                    From: "transform opacity-0 scale-95"
-                    To: "transform opacity-100 scale-100"
-                    Leaving: "transition ease-in duration-75"
-                    From: "transform opacity-100 scale-100"
-                    To: "transform opacity-0 scale-95"
-                  -->
-                  <div role="menu" tabindex="-1" aria-labelledby="user-menu-button" aria-orientation="vertical" class="absolute right-0 z-10 mt-2.5 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-hidden">
+                  <div role="menu" tabindex="-1" aria-labelledby="user-menu-button" aria-orientation="vertical" class="absolute right-0 z-10 mt-2.5 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-hidden opacity-0 pointer-events-none" data-toggle-target="menu">
                     <!-- Active: "bg-gray-50 outline-hidden", Not Active: "" -->
                     <a id="user-menu-item-0" role="menuitem" href="#" tabindex="-1" class="block px-3 py-1 text-sm/6 text-gray-900">Your profile</a>
                     <%= form_with url: destroy_user_session_path, method: :delete, data: { turbo: false  }, class: "inline" do %>
@@ -101,5 +90,7 @@
         </main>
       </div>
     </div>
+
+    <%= render partial: "layouts/partials/drawer" %>
   </body>
 </html>

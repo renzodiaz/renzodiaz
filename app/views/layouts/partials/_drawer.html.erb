@@ -1,0 +1,28 @@
+<dialog id="drawer" data-drawer-target="panel" aria-labelledby="drawer-title" class="fixed inset-0 size-auto max-h-none max-w-none overflow-hidden bg-gray-500/30 backdrop:bg-gray-500 z-50">
+  <div tabindex="0" class="absolute inset-0 pl-10 focus:outline-none sm:pl-16">
+    <div class="ml-auto block size-full max-w-md transform transition duration-500 ease-in-out data-closed:translate-x-full sm:duration-700">
+      <div class="flex h-full flex-col overflow-y-auto bg-white shadow-xl">
+        <div class="bg-indigo-700 px-4 py-6 sm:px-6">
+          <div class="flex items-center justify-between">
+            <h2 id="drawer-title" data-drawer-target="title" class="text-base font-semibold text-white">Panel title</h2>
+            <div class="ml-3 flex h-7 items-center">
+              <button type="button" data-action="click->drawer#close" class="relative rounded-md bg-indigo-700 text-indigo-200 hover:text-white focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-hidden">
+                <span class="absolute -inset-2.5"></span>
+                <span class="sr-only">Close panel</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6">
+                  <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="mt-1">
+            <p class="text-sm text-indigo-300" data-drawer-target="description">Lorem, ipsum dolor sit amet consectetur adipisicing elit aliquam ad hic recusandae soluta.</p>
+          </div>
+        </div>
+        <div class="relative flex-1 px-4 py-6 sm:px-6">
+          <turbo-frame data-drawer-target="frame" id="drawer-frame"></turbo-frame>
+        </div>
+      </div>
+    </div>
+  </div>
+</dialog>

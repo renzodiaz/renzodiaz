@@ -13,6 +13,7 @@ Rails.application.routes.draw do
  authenticate :user do
    namespace :dashboard do
      get "/", to: "home#index", as: "dashboard"
+     resources :job_histories
    end
  end
 

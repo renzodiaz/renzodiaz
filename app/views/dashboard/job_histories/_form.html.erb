@@ -1,0 +1,90 @@
+<turbo-frame id="drawer-frame">
+  <%= form_with model: [:dashboard, @job_history], data: { turbo_frame: "drawer-frame"  } do |f| %>
+    <% if @job_history.errors.any? %>
+      <div class="text-red-600">
+        <h2><%= pluralize(@job_history.errors.count, "error") %> prevented saving:</h2>
+        <ul>
+          <% @job_history.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="col-span-full mb-3" data-controller="preview">
+      <% unless job_history.cover.attached? %>
+        <div data-preview-target="upload">
+          <label for="cover-photo" class="block text-sm/6 font-medium text-gray-900">Cover photo</label>
+          <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
+            <div class="text-center">
+              <svg viewBox="0 0 24 24" fill="currentColor" data-slot="icon" aria-hidden="true" class="mx-auto size-12 text-gray-300">
+                <path d="M1.5 6a2.25 2.25 0 0 1 2.25-2.25h16.5A2.25 2.25 0 0 1 22.5 6v12a2.25 2.25 0 0 1-2.25 2.25H3.75A2.25 2.25 0 0 1 1.5 18V6ZM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0 0 21 18v-1.94l-2.69-2.689a1.5 1.5 0 0 0-2.12 0l-.88.879.97.97a.75.75 0 1 1-1.06 1.06l-5.16-5.159a1.5 1.5 0 0 0-2.12 0L3 16.061Zm10.125-7.81a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0Z" clip-rule="evenodd" fill-rule="evenodd" />
+              </svg>
+              <div class="mt-4 flex text-sm/6 text-gray-600">
+                <label for="job_history_cover" class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 focus-within:outline-hidden hover:text-indigo-500">
+                  <span>Upload a file</span>
+                  <%= f.file_field :cover, class:"sr-only", data: {
+                    action: "preview#update",
+                    preview_target: "input"
+                  } %>
+                </label>
+                <p class="pl-1">or drag and drop</p>
+              </div>
+              <p class="text-xs/5 text-gray-600">PNG, JPG, GIF up to 10MB</p>
+            </div>
+          </div>
+        </div>
+        <img data-preview-target="output" class="max-w-xs rounded border" />
+      <% else %>
+        <%= image_tag job_history.cover %>
+      <% end %>
+    </div>
+    <div class="mb-3">
+      <%= f.label :company_name, class: "block text-sm/6 font-medium text-gray-900" %>
+      <%= f.text_field :company_name, class: "block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-indigo-600 sm:text-sm/6" %>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :website_url, class: "block text-sm/6 font-medium text-gray-900" %>
+      <%= f.text_field :website_url, class: "block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-indigo-600 sm:text-sm/6", placeholder: "https://companyname.com" %>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :job_title, class: "block text-sm/6 font-medium text-gray-900" %>
+      <%= f.text_field :job_title, class: "block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-indigo-600 sm:text-sm/6", placeholder: "Front-End Developer" %>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :description, class: "block text-sm/6 font-medium text-gray-900" %>
+      <%= f.text_area :description, class: "block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-indigo-600 sm:text-sm/6", placeholder: "Enter the job description" %>
+    </div>
+
+    <div class="mb-3 flex">
+      <div>
+        <%= f.label :start_date, class: "block text-sm/6 font-medium text-gray-900" %>
+        <%= f.date_field :start_date, class: "block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-indigo-600 sm:text-sm/6" %>
+      </div>
+      <div class="ms-3">
+        <%= f.label :end_date, class: "block text-sm/6 font-medium text-gray-900" %>
+        <%= f.date_field :end_date, class: "block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-indigo-600 sm:text-sm/6" %>
+      </div>
+    </div>
+
+    <div class="mb-3 flex items-center">
+      <div class="group relative inline-flex h-5 w-10 shrink-0 items-center justify-center rounded-full outline-offset-2 outline-indigo-600 has-focus-visible:outline-2 dark:outline-indigo-500">
+        <span class="absolute mx-auto h-4 w-9 rounded-full bg-gray-200 inset-ring inset-ring-gray-900/5 transition-colors duration-200 ease-in-out group-has-checked:bg-indigo-600 dark:bg-gray-800/50 dark:inset-ring-white/10 dark:group-has-checked:bg-indigo-500"></span>
+        <span class="absolute left-0 size-5 rounded-full border border-gray-300 bg-white shadow-xs transition-transform duration-200 ease-in-out group-has-checked:translate-x-5 dark:shadow-none"></span>
+        <%= f.check_box :is_current, class: "absolute inset-0 appearance-none focus:outline-hidden" %>
+      </div>
+      <%= f.label :is_current, class: "ms-2 text-sm/6 font-medium text-gray-900" %>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :location, class: "block text-sm/6 font-medium text-gray-900" %>
+      <%= f.text_field :location, class: "block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-indigo-600 sm:text-sm/6", placeholder: "United States" %>
+    </div>
+
+    <div>
+      <%= f.submit "#{@job_history.new_record? ? 'Add Job' : 'Update Job'}", class: "rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
+    </div>
+  <% end %>
+</turbo-frame>

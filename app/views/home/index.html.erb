@@ -27,108 +27,25 @@
     <div class="about-section__wrapper">
       <h2>Career Timeline</h2>
       <ul class="timeline" data-controller="timeline">
-        <li class="timeline__item">
-          <span>2020</span>
-          <div class="card" data-timeline-target="box">
-            <figure>
-              <img src="https://placehold.co/380x200" alt="Solven" />
-              <figcaption>
-                <h3 class="card__title font-semibold">Full-Stack Rails Developer at - <a href="" class="text-red">Solven</a></h3>
-                <p>
-                <strong>Solven</strong> is a fintech platform that offer online loans to peruvians people. The platform collects person infomation from different
-                API's to get their credit score, national indentity. The process to get a loan is online, you have to take a picture with your 
-                phone camera or webcam, next the face recognition software will process and return a match percentage with the photo from your national card (ID card).
-                </p>
-                <button type="button">See my duties:</button>
-              </figcaption>
-            </figure>
-          </div>
-        </li>
-        <li class="timeline__item">
-          <span>2020</span>
-          <div class="card" data-timeline-target="box">
-            <figure>
-              <img src="https://placehold.co/380x200" alt="Solven" />
-              <figcaption>
-                <h3 class="card__title font-semibold">Full-Stack Rails Developer at - <a href="" class="text-red">Solven</a></h3>
-                <p>
-                <strong>Solven</strong> is a fintech platform that offer online loans to peruvians people. The platform collects person infomation from different
-                API's to get their credit score, national indentity. The process to get a loan is online, you have to take a picture with your 
-                phone camera or webcam, next the face recognition software will process and return a match percentage with the photo from your national card (ID card).
-                </p>
-                <button type="button">See my duties:</button>
-              </figcaption>
-            </figure>
-          </div>
-        </li>
-        <li class="timeline__item">
-          <span>2020</span>
-          <div class="card" data-timeline-target="box">
-            <figure>
-              <img src="https://placehold.co/380x200" alt="Solven" />
-              <figcaption>
-                <h3 class="card__title font-semibold">Full-Stack Rails Developer at - <a href="" class="text-red">Solven</a></h3>
-                <p>
-                <strong>Solven</strong> is a fintech platform that offer online loans to peruvians people. The platform collects person infomation from different
-                API's to get their credit score, national indentity. The process to get a loan is online, you have to take a picture with your 
-                phone camera or webcam, next the face recognition software will process and return a match percentage with the photo from your national card (ID card).
-                </p>
-                <button type="button">See my duties:</button>
-              </figcaption>
-            </figure>
-          </div>
-        </li>
-        <li class="timeline__item">
-          <span>2020</span>
-          <div class="card" data-timeline-target="box">
-            <figure>
-              <img src="https://placehold.co/380x200" alt="Solven" />
-              <figcaption>
-                <h3 class="card__title font-semibold">Full-Stack Rails Developer at - <a href="" class="text-red">Solven</a></h3>
-                <p>
-                <strong>Solven</strong> is a fintech platform that offer online loans to peruvians people. The platform collects person infomation from different
-                API's to get their credit score, national indentity. The process to get a loan is online, you have to take a picture with your 
-                phone camera or webcam, next the face recognition software will process and return a match percentage with the photo from your national card (ID card).
-                </p>
-                <button type="button">See my duties:</button>
-              </figcaption>
-            </figure>
-          </div>
-        </li>
-        <li class="timeline__item">
-          <span>2020</span>
-          <div class="card" data-timeline-target="box">
-            <figure>
-              <img src="https://placehold.co/380x200" alt="Solven" />
-              <figcaption>
-                <h3 class="card__title font-semibold">Full-Stack Rails Developer at - <a href="" class="text-red">Solven</a></h3>
-                <p>
-                <strong>Solven</strong> is a fintech platform that offer online loans to peruvians people. The platform collects person infomation from different
-                API's to get their credit score, national indentity. The process to get a loan is online, you have to take a picture with your 
-                phone camera or webcam, next the face recognition software will process and return a match percentage with the photo from your national card (ID card).
-                </p>
-                <button type="button">See my duties:</button>
-              </figcaption>
-            </figure>
-          </div>
-        </li>
-        <li class="timeline__item">
-          <span>2020</span>
-          <div class="card" data-timeline-target="box">
-            <figure>
-              <img src="https://placehold.co/380x200" alt="Solven" />
-              <figcaption>
-                <h3 class="card__title font-semibold">Full-Stack Rails Developer at - <a href="" class="text-red">Solven</a></h3>
-                <p>
-                <strong>Solven</strong> is a fintech platform that offer online loans to peruvians people. The platform collects person infomation from different
-                API's to get their credit score, national indentity. The process to get a loan is online, you have to take a picture with your 
-                phone camera or webcam, next the face recognition software will process and return a match percentage with the photo from your national card (ID card).
-                </p>
-                <button type="button">See my duties:</button>
-              </figcaption>
-            </figure>
-          </div>
-        </li>
+        <% @job_histories.each do |job| %>
+          <li class="timeline__item">
+            <span><%= job.start_date.strftime("%Y") %></span>
+            <div class="card" data-timeline-target="box">
+              <figure>
+                <% if job.cover.attached? %>
+                  <%= image_tag job.cover %>
+                <% else %>
+                  <img src="https://placehold.co/380x200" alt="Solven" />
+                <% end %>
+                <figcaption>
+                  <h3 class="card__title font-semibold"><%= job.job_title %> at - <a href="<%= job.website_url %>" class="text-red"><%= job.company_name %></a></h3>
+                  <p><%= job.description %></p>
+                  <button type="button">See my duties:</button>
+                </figcaption>
+              </figure>
+            </div>
+          </li>
+        <% end %>
       </ul>
     </div>
   </div>
