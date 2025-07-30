@@ -97,14 +97,16 @@
         margin-top: .5rem;
       }
 
-      p {
+      .trix-content {
         color: #444;
         font-size: .95rem;
-        letter-spacing: .2px;
+        letter-spacing: .5px;
         line-height: 1.6rem;
         margin: .5rem 0;
+
         strong {
-          color: red;
+          color: variables.$color-dark;
+          font-family: variables.$font-semibold;
         }
       }
 
