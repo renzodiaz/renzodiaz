@@ -44,3 +44,5 @@
 
 # Ignore Mac's file for metadate
 *.DS_Store
+
+/config/credentials/production.key
