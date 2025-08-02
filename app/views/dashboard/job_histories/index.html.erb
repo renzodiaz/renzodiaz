@@ -30,10 +30,8 @@
                 </th>
               </tr>
             </thead>
-            <tbody class="divide-y divide-gray-200">
-              <%= turbo_frame_tag "job_history_list" %>
-                <%= render @job_histories %>
-              <%= %>
+            <tbody class="divide-y divide-gray-200" id="job_history_list">
+              <%= render @job_histories %>
             </tbody>
           </table>
       </div>

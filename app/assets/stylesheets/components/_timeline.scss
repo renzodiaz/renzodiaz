@@ -35,6 +35,11 @@
 
         left: -455px;
 
+        .current {
+          border-radius: 0 0 5px 0;
+          left: 0;
+          right: auto;
+        }
         &:before {
           border-width: 20px 0 20px 16px;
           right: -10px;
@@ -42,7 +47,7 @@
       }
     }
 
-    span {
+    span.circle {
       background: white;
       border-radius: 50%; 
       font-size: .95rem;
@@ -95,23 +100,35 @@
         color: variables.$color-dark;
         letter-spacing: 0.3px;
         margin-top: .5rem;
-      }
-
-      .trix-content {
-        color: #444;
-        font-size: .95rem;
-        letter-spacing: .5px;
-        line-height: 1.6rem;
-        margin: .5rem 0;
-
-        strong {
-          color: variables.$color-dark;
-          font-family: variables.$font-semibold;
+        a {
+          text-decoration: underline;
         }
       }
 
+      .card__subtitle {
+        color: variables.$color-gray-alt;
+        font-size: .95rem;
+        margin-bottom: 1rem;
+      }
+
+      .current {
+        background: orange;
+        border-radius: 0 0 0 5px;
+        display: inline-block;
+        font-size: .85rem;
+        font-family: variables.$font-semibold;
+        text-transform: uppercase;
+        color: white;
+        position: absolute;
+        padding: 0 1rem;
+        right: 0;
+        top: 0;
+        margin: 0 auto;
+        max-width: 90px;
+      }
+
       button {
-        background: red;
+        background: #E04F67; 
         border-radius: 20px;
         color: white;
         cursor: pointer;

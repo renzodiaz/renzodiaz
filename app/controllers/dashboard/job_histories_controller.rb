@@ -11,21 +11,37 @@ class Dashboard::JobHistoriesController < Dashboard::AuthController
 
   def create
     @job_history.user = current_user
-    if @job_history.save
-      respond_to do |format|
-        format.turbo_stream
-        format.html
+
+    respond_to do |format|
+      if @job_history.save
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.append("job_history_list",
+                                partial: "dashboard/job_histories/job_history",
+                                locals: { job_history: @job_history })
+          ]
+        end
+        format.html { redirect_to dashboard_job_histories_url, notice: "Job history created successfully" }
+      else
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.update("drawer-frame",
+                                                   partial: "dashboard/job_histories/form",
+                                                   locals: { job_history: @job_history })
+        end
+        format.html { render :new, status: :unprocessable_entity }
       end
-    else
-      render partial: "dashboard/job_histories/form", status: :unprocessable_entity, locals: { job_history: @job_history }
     end
   end
 
   def update
     if @job_history.update(job_history_params)
       respond_to do |format|
-        format.turbo_stream
-        format.html
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.update("job_history_list",
+                                                   partial: "dashboard/job_histories/job_history",
+                                                   locals: { job_history: @job_history })
+        end
+        format.html { redirect_to dashboard_job_histories_url, notice: "Job history updated successfully"  }
       end
     else
       render partial: "dashboard/job_histories/form", status: :unprocessable_entity, locals: { job_history: @job_history  }
@@ -35,8 +51,8 @@ class Dashboard::JobHistoriesController < Dashboard::AuthController
   def destroy
     if @job_history.destroy
       respond_to do |format|
-        format.turbo_stream
-        format.html
+        format.turbo_stream { render turbo_stream: turbo_stream.remove(@job_history) }
+        format.html { redirect_to dashboard_job_histories_path, notice: "Job history deleted."  }
       end
     end
   end

@@ -23,7 +23,7 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="h-full" data-controller="drawer">
+  <body class="h-full" data-controller="drawer" data-action="turbo:frame-load->drawer#open turbo:submit-end->drawer#close">
     <div>
       <%= render 'layouts/partials/mobile_navigation' %>
       <%= render 'layouts/partials/sidebar' %>

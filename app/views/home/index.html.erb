@@ -28,9 +28,12 @@
       <h2>Career Timeline</h2>
       <ul class="timeline" data-controller="timeline">
         <% @job_histories.each do |job| %>
-          <li class="timeline__item">
-            <span><%= job.start_date&.strftime("%Y") %></span>
+          <li class="timeline__item"> 
+            <span class="circle"><%= job.start_date&.strftime("%Y") %></span>
             <div class="card" data-timeline-target="box">
+              <% if job.is_current %>
+                <span class="current">Current</span>
+              <% end %>
               <figure>
                 <% if job.cover.attached? %>
                   <%= image_tag job.cover %>
@@ -38,9 +41,11 @@
                   <img src="https://placehold.co/380x200" alt="Solven" />
                 <% end %>
                 <figcaption>
-                  <h3 class="card__title font-semibold"><%= job.job_title %> at - <a href="<%= job.website_url %>" class="text-red"><%= job.company_name %></a></h3>
-                  <div class="my-3"><%= job.description %></div>
-                  <button type="button">See my duties:</button>
+                  <hgroup>
+                    <h3 class="card__title font-semibold"><%= job.job_title %> at - <a href="<%= job.website_url %>" class="text-red"><%= job.company_name %></a></h3>
+                    <h4 class="card__subtitle font-semibold"><%= job.location %></h4>
+                  </hgroup>
+                  <button type="button">See more</button>
                 </figcaption>
               </figure>
             </div>

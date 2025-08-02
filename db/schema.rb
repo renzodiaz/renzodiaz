@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_30_172600) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_01_175455) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -52,6 +52,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_30_172600) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "friendly_id_slugs", force: :cascade do |t|
+    t.string "slug", null: false
+    t.integer "sluggable_id", null: false
+    t.string "sluggable_type", limit: 50
+    t.string "scope"
+    t.datetime "created_at"
+    t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
+    t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
+    t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
+  end
+
   create_table "job_histories", force: :cascade do |t|
     t.string "company_name"
     t.string "website_url"
@@ -65,6 +76,23 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_30_172600) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_job_histories_on_user_id"
+  end
+
+  create_table "job_history_tech_stacks", force: :cascade do |t|
+    t.bigint "job_history_id", null: false
+    t.bigint "tech_stack_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["job_history_id"], name: "index_job_history_tech_stacks_on_job_history_id"
+    t.index ["tech_stack_id"], name: "index_job_history_tech_stacks_on_tech_stack_id"
+  end
+
+  create_table "tech_stacks", force: :cascade do |t|
+    t.string "icon"
+    t.string "name"
+    t.string "slug"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -84,4 +112,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_30_172600) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "job_histories", "users"
+  add_foreign_key "job_history_tech_stacks", "job_histories"
+  add_foreign_key "job_history_tech_stacks", "tech_stacks"
 end

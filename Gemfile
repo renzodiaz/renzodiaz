@@ -60,3 +60,4 @@ gem "devise", "~> 4.9"
 
 gem "tailwindcss-rails", "~> 4.3"
 gem "dartsass-rails"
+gem "friendly_id", "~> 5.5.0"
