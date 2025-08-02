@@ -45,7 +45,11 @@
                     <h3 class="card__title font-semibold"><%= job.job_title %> at - <a href="<%= job.website_url %>" class="text-red"><%= job.company_name %></a></h3>
                     <h4 class="card__subtitle font-semibold"><%= job.location %></h4>
                   </hgroup>
-                  <button type="button">See more</button>
+                  <%= link_to "See more", "#", data: {
+                    action: "click->modal#open",
+                    modal_url: job_history_path(job, format: :html),
+                    modal_title: "Job description",
+                  }, class: "see-more" %>
                 </figcaption>
               </figure>
             </div>

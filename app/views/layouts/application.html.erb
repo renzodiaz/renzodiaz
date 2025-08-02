@@ -20,8 +20,9 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="bg-dark">
+  <body class="bg-dark" data-controller="modal">
     <%= render partial: "layouts/partials/app_header" %>
+    <%= render partial: "layouts/partials/modal" %>
     <main>
       <%= yield %>
     </main>

@@ -6,6 +6,7 @@
 @use "components/hero";
 @use "components/timeline";
 @use "components/section-about";
+@use "components/modal";
 
 body  {
   font-weight: normal;
@@ -36,6 +37,10 @@ body  {
   @include mixins.responsive('sm') {
     display: none;
   }
+}
+
+.overflow-hidden {
+  overflow: hidden;
 }
 
 .text-red {
