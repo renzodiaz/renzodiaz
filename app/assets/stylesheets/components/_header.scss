@@ -15,7 +15,11 @@
     justify-content: space-between;
 
     h1 {
-      font-size: 1.65rem;
+      font-size: 1.5rem;
+
+      @include mixins.responsive('sm') {
+        font-size: 1.65rem;
+      }
 
       span {
         color: red;
@@ -24,8 +28,6 @@
   }
 
   &__nav {
-    display: none;
-
     @include mixins.responsive('sm') {
       display: flex;
     }
@@ -37,18 +39,25 @@
 
       li {
         display: inline-block;
-        font-size: .965rem;
+        font-size: .85rem;
         vertical-align: top;
+
+        @include mixins.responsive('sm') {
+          font-size: .95rem;
+        }
+
         a {
           padding: .3rem 1rem;
           transition: all .3s ease;
-          
+
           &:hover {
             text-decoration: underline;
           }
         }
 
         &:last-child {
+          font-size: .95rem;
+
           a {
             background-image: linear-gradient(45deg, #E04F67, #C72C4A, #7B1E6A, #4A1442);
           }
