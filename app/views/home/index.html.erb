@@ -42,7 +42,7 @@
                 <% end %>
                 <figcaption>
                   <hgroup>
-                    <h3 class="card__title font-semibold"><%= job.job_title %> at - <a href="<%= job.website_url %>" class="text-red"><%= job.company_name %></a></h3>
+                    <h3 class="card__title font-semibold"><%= job.job_title %> at - <a href="<%= job.website_url %>" target="_blank" class="text-red"><%= job.company_name %></a></h3>
                     <h4 class="card__subtitle font-semibold"><%= job.location %></h4>
                   </hgroup>
                   <%= link_to "See more", "#", data: {
