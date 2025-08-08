@@ -37,7 +37,7 @@ class Dashboard::JobHistoriesController < Dashboard::AuthController
     if @job_history.update(job_history_params)
       respond_to do |format|
         format.turbo_stream do
-          render turbo_stream: turbo_stream.update("job_history_list",
+          render turbo_stream: turbo_stream.replace("job_history_#{@job_history.id}",
                                                    partial: "dashboard/job_histories/job_history",
                                                    locals: { job_history: @job_history })
         end

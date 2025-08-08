@@ -1,4 +1,4 @@
-<%= form_with model: [:dashboard, @job_history] do |f| %>
+<%= form_with model: [:dashboard, @job_history], data: {turbo_stream: true} do |f| %>
   <% if @job_history.errors.any? %>
     <div class="text-red-600">
       <h2><%= pluralize(@job_history.errors.count, "error") %> prevented saving:</h2>

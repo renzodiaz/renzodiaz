@@ -31,6 +31,7 @@
               </tr>
             </thead>
             <tbody class="divide-y divide-gray-200" id="job_history_list">
+              <%= turbo_stream_from "job_histories" %>
               <%= render @job_histories %>
             </tbody>
           </table>
