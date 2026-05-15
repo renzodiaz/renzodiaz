@@ -23,9 +23,13 @@
   &__dialog {
     $self: &;
     background: white;
-    border-radius: 0 20px 0 20px;
+    border-radius: 20px 0 20px 0;
+    max-height: calc(100dvh - 150px);
     min-height: 300px;
     position: relative;
+    overflow: auto;
+    scrollbar-color: variables.$color-red transparent;
+    scrollbar-width: thin;
     width: 100%;
 
     @include mixins.responsive("sm") {
@@ -70,6 +74,10 @@
     #{ $self }-body {
       color: variables.$color-dark;
       padding: 1rem;
+
+      strong {
+        color: variables.$color-red;
+      }
     }
   }
 }
