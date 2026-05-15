@@ -1,0 +1,48 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:   # lets you trigger manually from GitHub UI
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script_stop: true
+          script: |
+            set -e
+            cd /var/www/portfolio
+
+            echo "==> Pulling latest code"
+            git pull origin main
+
+            echo "==> Loading environment"
+            eval "$(~/.local/bin/mise activate bash)"
+            set -a && source .env && set +a
+
+            echo "==> Installing gems"
+            bundle config set --local deployment 'true'
+            bundle config set --local without 'development test'
+            bundle install --jobs 2
+
+            echo "==> Running migrations"
+            bundle exec rails db:migrate
+
+            echo "==> Precompiling assets"
+            bundle exec rails assets:precompile
+
+            echo "==> Restarting Puma"
+            sudo systemctl restart portfolio
+
+            echo "==> Verifying service is up"
+            sleep 3
+            sudo systemctl status portfolio --no-pager | head -10
+
+            echo "==> Deploy complete"
