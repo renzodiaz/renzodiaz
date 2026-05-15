@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_01_175455) do
+ActiveRecord::Schema[8.0].define(version: 2026_05_15_155916) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -83,7 +83,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_01_175455) do
     t.bigint "tech_stack_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["job_history_id"], name: "index_job_history_tech_stacks_on_job_history_id"
+    t.index ["job_history_id", "tech_stack_id"], name: "idx_on_job_history_id_tech_stack_id_5e45529bf4", unique: true
     t.index ["tech_stack_id"], name: "index_job_history_tech_stacks_on_tech_stack_id"
   end
 
