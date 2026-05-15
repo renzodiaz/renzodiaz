@@ -1,14 +1,20 @@
-<%= form_with model: [:dashboard, @job_history], data: {turbo_stream: true} do |f| %>
-  <% if @job_history.errors.any? %>
-    <div class="text-red-600">
-      <h2><%= pluralize(@job_history.errors.count, "error") %> prevented saving:</h2>
-      <ul>
-        <% @job_history.errors.full_messages.each do |msg| %>
+<% input_base   = "block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 placeholder:text-gray-400 focus-visible:outline-2 focus-visible:-outline-offset-2 sm:text-sm/6"
+   input_normal = "#{input_base} outline-gray-300 focus-visible:outline-indigo-600"
+   input_error  = "#{input_base} outline-red-500 focus-visible:outline-red-600"
+   field_class  = ->(attr) { job_history.errors[attr].any? ? input_error : input_normal } %>
+
+<%= form_with model: [ :dashboard, job_history ], data: { turbo_frame: "_top", turbo_stream: true } do |f| %>
+  <% if job_history.errors.any? %>
+    <div class="mb-4 rounded-md border border-red-200 bg-red-50 p-3">
+      <h2 class="text-sm font-semibold text-red-800"><%= pluralize(job_history.errors.count, "error") %> prevented saving:</h2>
+      <ul class="mt-1 list-disc list-inside text-sm text-red-700">
+        <% job_history.errors.full_messages.each do |msg| %>
           <li><%= msg %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
+
   <div class="col-span-full mb-3" data-controller="preview">
     <% unless job_history.cover.attached? %>
       <div data-preview-target="upload">
@@ -37,34 +43,50 @@
       <%= image_tag job_history.cover %>
     <% end %>
   </div>
+
   <div class="mb-3">
     <%= f.label :company_name, class: "block text-sm/6 font-medium text-gray-900" %>
-    <%= f.text_field :company_name, class: "block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-indigo-600 sm:text-sm/6" %>
+    <%= f.text_field :company_name, class: field_class.call(:company_name), required: true %>
+    <% if job_history.errors[:company_name].any? %>
+      <p class="mt-1 text-xs text-red-600"><%= job_history.errors[:company_name].first %></p>
+    <% end %>
   </div>
 
   <div class="mb-3">
     <%= f.label :website_url, class: "block text-sm/6 font-medium text-gray-900" %>
-    <%= f.text_field :website_url, class: "block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-indigo-600 sm:text-sm/6", placeholder: "https://companyname.com" %>
+    <%= f.url_field :website_url, class: field_class.call(:website_url), placeholder: "https://companyname.com" %>
+    <% if job_history.errors[:website_url].any? %>
+      <p class="mt-1 text-xs text-red-600"><%= job_history.errors[:website_url].first %></p>
+    <% end %>
   </div>
 
   <div class="mb-3">
     <%= f.label :job_title, class: "block text-sm/6 font-medium text-gray-900" %>
-    <%= f.text_field :job_title, class: "block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-indigo-600 sm:text-sm/6", placeholder: "Front-End Developer" %>
+    <%= f.text_field :job_title, class: field_class.call(:job_title), placeholder: "Front-End Developer", required: true %>
+    <% if job_history.errors[:job_title].any? %>
+      <p class="mt-1 text-xs text-red-600"><%= job_history.errors[:job_title].first %></p>
+    <% end %>
   </div>
 
   <div class="mb-3">
     <%= f.label :description, class: "block text-sm/6 font-medium text-gray-900" %>
-    <%= f.rich_textarea :description, class: "block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-indigo-600 sm:text-sm/6", placeholder: "Enter the job description" %>
+    <%= f.rich_textarea :description, class: field_class.call(:description), placeholder: "Enter the job description" %>
   </div>
 
   <div class="mb-3 flex">
     <div>
       <%= f.label :start_date, class: "block text-sm/6 font-medium text-gray-900" %>
-      <%= f.date_field :start_date, class: "block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-indigo-600 sm:text-sm/6" %>
+      <%= f.date_field :start_date, class: field_class.call(:start_date), required: true %>
+      <% if job_history.errors[:start_date].any? %>
+        <p class="mt-1 text-xs text-red-600"><%= job_history.errors[:start_date].first %></p>
+      <% end %>
     </div>
     <div class="ms-3">
       <%= f.label :end_date, class: "block text-sm/6 font-medium text-gray-900" %>
-      <%= f.date_field :end_date, class: "block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-indigo-600 sm:text-sm/6" %>
+      <%= f.date_field :end_date, class: field_class.call(:end_date) %>
+      <% if job_history.errors[:end_date].any? %>
+        <p class="mt-1 text-xs text-red-600"><%= job_history.errors[:end_date].first %></p>
+      <% end %>
     </div>
   </div>
 
@@ -79,10 +101,13 @@
 
   <div class="mb-3">
     <%= f.label :location, class: "block text-sm/6 font-medium text-gray-900" %>
-    <%= f.text_field :location, class: "block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-indigo-600 sm:text-sm/6", placeholder: "United States" %>
+    <%= f.text_field :location, class: field_class.call(:location), placeholder: "United States" %>
   </div>
 
   <div>
-    <%= f.submit "#{@job_history.new_record? ? 'Add Job' : 'Update Job'}", class: "rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
+    <% submit_label = job_history.new_record? ? "Add Job" : "Update Job" %>
+    <%= f.submit submit_label,
+        data: { turbo_submits_with: "Saving..." },
+        class: "inline-flex items-center gap-2 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:opacity-60 disabled:cursor-not-allowed" %>
   </div>
 <% end %>
